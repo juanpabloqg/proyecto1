@@ -8,6 +8,13 @@
 
 // Apply the java-library plugin to add support for Java Library
 apply plugin: 'java-library'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'jacoco'
+
+version = '1.0'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -29,5 +36,35 @@ dependencies {
     
      // https://mvnrepository.com/artifact/org.mockito/mockito-core
 	testCompile group: 'org.mockito', name: 'mockito-core', version: '2.18.3'
+	
+	
+	// https://mvnrepository.com/artifact/org.jacoco/org.jacoco.agent
+	testCompile group: 'org.jacoco', name: 'org.jacoco.agent', version: '0.8.1'
+	
+	
 }
 
+jar {
+	manifest{
+		attributes 'Implementacion-Title': 'proyecvto1',
+					'Implementacion-Version': version
+	}
+}
+
+test {
+	jacoco {
+		append = false
+		destinationFile = file("jacoco/jacocoTest.exec")
+	}
+	reports.junitXml.destination = file("jacoco/test-results")
+}
+
+jacocoTestReport.dependsOn(test)
+
+/*tasks.withType(JavaCompile) {
+    //enable compilation in a separate daemon process
+    options.fork = true
+
+    //enable incremental compilation
+    options.incremental = true
+}*/

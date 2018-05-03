@@ -9,7 +9,7 @@ public class PersonTestDataBuilder {
 	
 	
 	public PersonTestDataBuilder(String name, String lastName) {
-		super();
+		
 		this.name = "Ceiba";
 		this.lastName = "Software House";
 	};
